@@ -1,6 +1,8 @@
 package com.zhike.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -11,9 +13,12 @@ import java.util.Objects;
 
 /**
  * @author Administrator
+ * 活动实体类
  */
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Where(clause = "delete_time is null and online = 1")
 public class Activity extends BaseEntity{
     @Id
