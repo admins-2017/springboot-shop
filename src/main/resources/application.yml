@@ -1,0 +1,35 @@
+
+#default.api-package 为默认的api路由 根据包名 api下的包路径就是controller的路由
+# api 为所有路由的根包
+default:
+  api-package: com.zhike.api
+
+spring:
+  http:
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
+  #指定环境 jar包启动切换环境 java -jar xxx.jar --spring.profiles.active=dev
+  profiles:
+    active: dev
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+    open-in-view: true
+  #将驼峰命名的属性名改为_
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    #将返回的日期格式改为时间戳
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: true
+#微信相关
+wx:
+  #微信id
+  appid: wx6e2d73d74bf11f91
+  appsecret: 8c8b5d74f6785cdc4ccb3a338d0d67a7
+  #微信code验证地址
+  code2session: https://api.weixin.qq.com/sns/jscode2session?appid=wx6e2d73d74bf11f91&secret=8c8b5d74f6785cdc4ccb3a338d0d67a7&js_code={0}&grant_type=authorization_code
