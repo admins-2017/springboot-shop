@@ -1,9 +1,11 @@
 package com.zhike.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
+import org.springframework.context.annotation.EnableMBeanExport;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -20,6 +22,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Where(clause = "delete_time is null and online = 1")
+@Builder
 public class Activity extends BaseEntity{
     @Id
     private Long id;
@@ -55,6 +58,6 @@ public class Activity extends BaseEntity{
      * JoinColumn("activityId") 相当于join coupon on activity.id = coupon.activity_id
      */
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(columnDefinition = "activityId")
+    @JoinColumn(name="activityId")
     private List<Coupon> couponList;
 }

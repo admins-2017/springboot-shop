@@ -1,14 +1,13 @@
 package com.zhike.model;
 
 import lombok.Data;
+import org.hibernate.annotations.Where;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,6 +15,7 @@ import java.util.Objects;
  */
 @Entity
 @Data
+@Where(clause = "delete_time is null")
 public class Coupon {
     @Id
     private Long id;
@@ -61,4 +61,6 @@ public class Coupon {
      */
     private Boolean wholeStore;
 
+    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "couponList")
+    private List<Category> categoryList;
 }

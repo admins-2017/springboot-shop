@@ -1,9 +1,13 @@
 package com.zhike.core.interceptors;
 
 import com.auth0.jwt.interfaces.Claim;
+import com.zhike.core.LocalUser;
 import com.zhike.exception.HttpException.ForbiddenException;
 import com.zhike.exception.HttpException.UnAuthenticatedException;
+import com.zhike.model.User;
+import com.zhike.service.UserService;
 import com.zhike.util.JwtToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,9 +24,13 @@ import java.util.Optional;
  */
 public class PermissionInterceptor extends HandlerInterceptorAdapter {
 
+    @Autowired
+    private UserService userService;
+
     public PermissionInterceptor() {
         super();
     }
+
 
     /**
      * 请求进入controller之前
@@ -70,7 +78,22 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
                 .orElseThrow(() -> new UnAuthenticatedException(10004));
 //        判断权限
         boolean valid = this.hasPermission(scopeLevel.get(),map);
+//        如果合法 则将用户数据保存
+        if (valid){
+            this.setToThreadLocal(map);
+        }
         return valid;
+    }
+
+
+    /**
+     * 从用户请求的token中获取用户信息保存到本地
+     */
+    private void setToThreadLocal(Map<String,Claim> map){
+        Long uid = map.get("uid").asLong();
+        Integer scope = map.get("scope").asInt();
+        User user = userService.getUserById(uid);
+        LocalUser.setUser(user,scope);
     }
 
     /**
@@ -118,6 +141,8 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+//        释放线程池
+        LocalUser.clear();
         super.afterCompletion(request, response, handler, ex);
     }
 

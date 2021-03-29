@@ -1,9 +1,8 @@
 package com.zhike.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhike.exception.HttpException.NotFoundException;
-import com.zhike.exception.HttpException.ParmeterException;
+import com.zhike.exception.HttpException.ParameterException;
 import com.zhike.model.User;
 import com.zhike.repository.UserRepository;
 import com.zhike.service.WxAuthenticationService;
@@ -58,7 +57,7 @@ public class WxAuthenticationServiceImpl implements WxAuthenticationService {
     private String registerUser(Map<String,Object> session){
         String openid =(String) session.get("openid");
         if (openid == null){
-            throw new ParmeterException(20004);
+            throw new ParameterException(20004);
         }
         Optional<User> userOptional = userRepository.findByOpenid(openid);
 //        判断用户是否存在

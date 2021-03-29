@@ -1,5 +1,6 @@
 package com.zhike.core;
 
+import com.zhike.exception.CreateSuccess;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +28,10 @@ public class UnifyResponse {
         this.code = code;
         this.message = message;
         this.request = request;
+    }
+
+    public static void createSuccess(int code){
+        throw new CreateSuccess(code);
     }
 
 }
