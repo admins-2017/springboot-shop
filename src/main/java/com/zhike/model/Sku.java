@@ -1,19 +1,23 @@
 package com.zhike.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.zhike.util.GenericAndJson;
 import lombok.Data;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Administrator
  */
 @Entity
 @Data
+@Where(clause = "delete_time is null and online = 1")
 public class Sku extends BaseEntity{
     @Id
     private Long id;
@@ -44,6 +48,25 @@ public class Sku extends BaseEntity{
      */
 //    @Convert(converter = ListAndJson.class)
     private String specs;
+
+    /**
+     * 获取商品的所有规格值
+     *
+     * JsonIgnore 不进行序列化
+     * @return
+     */
+    @JsonIgnore
+    public List<String> getSpecValueList() {
+        return this.getSpecs().stream().map(Spec::getValue).collect(Collectors.toList());
+    }
+
+    /**
+     * 获取商品的价格 如果有折扣价 则返回折扣价 反之返回原价
+     * @return
+     */
+    public BigDecimal getActualPrice(){
+        return discountPrice==null?this.price:this.discountPrice;
+    }
 
     /**
      * 在jpa执行序列化时会执行get 和 set 方法 所有需要重写get 和 set方法 来执行自定义序列化

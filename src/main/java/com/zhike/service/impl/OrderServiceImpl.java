@@ -1,10 +1,12 @@
 package com.zhike.service.impl;
 
+import com.zhike.core.money.IMoneyDiscount;
 import com.zhike.dto.OrderDTO;
 import com.zhike.dto.SkuInfoDTO;
 import com.zhike.exception.HttpException.NotFoundException;
 import com.zhike.exception.HttpException.ParameterException;
 import com.zhike.logic.CouponChecker;
+import com.zhike.logic.OrderChecker;
 import com.zhike.model.Coupon;
 import com.zhike.model.Sku;
 import com.zhike.model.UserCoupon;
@@ -13,6 +15,7 @@ import com.zhike.repository.UserCouponRepository;
 import com.zhike.service.OrderService;
 import com.zhike.service.SkuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -35,6 +38,11 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private UserCouponRepository userCouponRepository;
 
+    @Autowired
+    private IMoneyDiscount iMoneyDiscount;
+
+    @Value("${shop.order.max-sku-limit}")
+    private int maxSkuLimit;
     /**
      * 订单校验
      * 1. 商品库存
@@ -48,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
      * CouponChecker 优惠券校验类
      */
     @Override
-    public Boolean isOk(Long uid, OrderDTO dto) {
+    public OrderChecker isOk(Long uid, OrderDTO dto) {
 //       检验价格是否小于等于0
         if (dto.getTotalPrice().compareTo(new BigDecimal("0")) <= 0){
             throw new ParameterException(50011);
@@ -67,9 +75,12 @@ public class OrderServiceImpl implements OrderService {
 //            获取到用户的优惠券 如果为空表示用户根本就没有这张优惠券 抛出异常
             UserCoupon userCoupon = userCouponRepository.findFirstByUserIdAndCouponId(uid, couponId).orElseThrow(() -> new NotFoundException(50006));
 
-             couponChecker = new CouponChecker(coupon,userCoupon);
+             couponChecker = new CouponChecker(coupon,iMoneyDiscount);
         }
-
-        return null;
+        OrderChecker orderChecker = new OrderChecker(
+                dto,skuList,couponChecker,this.maxSkuLimit
+        );
+        orderChecker.isOk();
+        return orderChecker;
     }
 }

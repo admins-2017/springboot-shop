@@ -17,3 +17,5 @@ shop:
   security:
     jwt-key: kang0517
     token-expired-in: 86400000
+  order:
+    max-sku-limit: 100
