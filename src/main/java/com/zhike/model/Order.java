@@ -1,7 +1,10 @@
 package com.zhike.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.zhike.core.enumeration.OrderStatus;
 import com.zhike.dto.OrderAddressDTO;
+import com.zhike.util.CommonUtil;
 import com.zhike.util.GenericAndJson;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -83,6 +86,31 @@ public class Order extends BaseEntity{
      */
     private Integer status;
 
+    /**
+     * JsonIgnore 修饰get方法不加入序列化
+     * @return
+     */
+    @JsonIgnore
+    public OrderStatus getStatusEnum() {
+        return OrderStatus.toType(this.status);
+    }
+
+    /**
+     * 判断订单是否过期
+     * @return
+     */
+    public Boolean needCancel() {
+//        判断订单状态是否为未支付状态 如果不是未支付则直接返回false
+        if (!this.getStatusEnum().equals(OrderStatus.UNPAID)) {
+            return true;
+        }
+//        判断时间是否过期
+        boolean isOutOfDate = CommonUtil.isOutOfDate(this.getExpiredTime());
+        if (isOutOfDate) {
+            return true;
+        }
+        return false;
+    }
 
     public void setSnapItems(List<OrderSku> orderSkuList) {
         if (orderSkuList.isEmpty()) {

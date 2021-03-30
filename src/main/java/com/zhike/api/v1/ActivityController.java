@@ -21,10 +21,6 @@ public class ActivityController {
 
     private final ActivityService activityService;
 
-    public ActivityController(ActivityService activityService) {
-        this.activityService = activityService;
-    }
-
     @GetMapping("/name/{name}")
     public ActivityPureVO getActivityByName(@PathVariable String name){
         Activity activity = activityService.getActivityByName(name);
@@ -42,5 +38,9 @@ public class ActivityController {
             throw new NotFoundException(40001);
         }
         return new ActivityAndCouponVO(activity);
+    }
+
+    public ActivityController(ActivityService activityService) {
+        this.activityService = activityService;
     }
 }

@@ -20,5 +20,9 @@ shop:
   order:
     max-sku-limit: 100
     pay-time-limit: 3600
+#    微信支付回调主机地址及端口号
+    pay-callback-host: http://localhost:8080
+#    微信支付回调接口路径
+    pay-callback-path: /v1/payment/wx/notify
   year-codes: A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q
 

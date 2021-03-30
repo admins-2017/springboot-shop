@@ -223,4 +223,17 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
+    public void updateOrderPrepayId(Long orderId, String prePayId) {
+//        获取订单
+        Optional<Order> order = this.orderRepository.findById(orderId);
+//        如果订单不为空则将微信订单id保存
+        order.ifPresent(o -> {
+            o.setPrepayId(prePayId);
+            this.orderRepository.save(o);
+        });
+
+        order.orElseThrow(() -> new ParameterException(10007));
+    }
+
 }

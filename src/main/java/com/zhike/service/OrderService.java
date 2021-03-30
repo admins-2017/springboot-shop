@@ -52,4 +52,11 @@ public interface OrderService {
      * @return 订单详情
      */
     Optional<Order> getOrderDetail(Long oid);
+
+    /**
+     * 更新订单的微信单号id
+     * @param orderId 订单id
+     * @param prePayId 微信订单id
+     */
+    void updateOrderPrepayId(Long orderId, String prePayId);
 }

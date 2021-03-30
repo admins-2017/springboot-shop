@@ -4,6 +4,7 @@ import com.zhike.model.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -53,4 +54,11 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
      * @return 订单详情
      */
     Optional<Order> findFirstByUserIdAndId(Long uid, Long oid);
+
+
+    Optional<Order> findFirstByOrderNo(String orderNo);
+
+    @Modifying
+    @Query("update Order o set o.status=:status where o.orderNo=:orderNo")
+    int updateStatusByOrderNo(String orderNo, int value);
 }
