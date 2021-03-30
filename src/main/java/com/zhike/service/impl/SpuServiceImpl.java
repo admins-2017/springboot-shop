@@ -19,8 +19,11 @@ import java.util.List;
 public class SpuServiceImpl implements SpuService {
 
 
-    @Autowired
-    private SpuRepository spuRepository;
+    private final SpuRepository spuRepository;
+
+    public SpuServiceImpl(SpuRepository spuRepository) {
+        this.spuRepository = spuRepository;
+    }
 
     @Override
     public Spu getSpuDetailById(Long id) {

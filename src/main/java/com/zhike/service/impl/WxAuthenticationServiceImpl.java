@@ -20,11 +20,9 @@ import java.util.Optional;
 @Service
 public class WxAuthenticationServiceImpl implements WxAuthenticationService {
 
-    @Autowired
-    private ObjectMapper mapper;
+    private final ObjectMapper mapper;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Value("${wx.code2session}")
     private String code2SessionUrl;
@@ -32,6 +30,11 @@ public class WxAuthenticationServiceImpl implements WxAuthenticationService {
     private String appid;
     @Value("${wx.appsecret}")
     private String appsecret;
+
+    public WxAuthenticationServiceImpl(ObjectMapper mapper, UserRepository userRepository) {
+        this.mapper = mapper;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public String code2Session(String code) {

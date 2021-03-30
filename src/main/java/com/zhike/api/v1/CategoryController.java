@@ -20,11 +20,14 @@ import java.util.Map;
 @RequestMapping("/category")
 public class CategoryController {
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
-    @Autowired
-    private GridCategoryService gridCategoryService;
+    private final GridCategoryService gridCategoryService;
+
+    public CategoryController(CategoryService categoryService, GridCategoryService gridCategoryService) {
+        this.categoryService = categoryService;
+        this.gridCategoryService = gridCategoryService;
+    }
 
     @RequestMapping("all")
     public CategoryAllVO getAll(){

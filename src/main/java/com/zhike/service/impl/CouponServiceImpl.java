@@ -26,12 +26,15 @@ import java.util.Optional;
 @Service
 public class CouponServiceImpl implements CouponService {
 
-    @Autowired
-    private CouponRepository couponRepository;
-    @Autowired
-    private ActivityRepository activityRepository;
-    @Autowired
-    private UserCouponRepository userCouponRepository;
+    private final CouponRepository couponRepository;
+    private final ActivityRepository activityRepository;
+    private final UserCouponRepository userCouponRepository;
+
+    public CouponServiceImpl(CouponRepository couponRepository, ActivityRepository activityRepository, UserCouponRepository userCouponRepository) {
+        this.couponRepository = couponRepository;
+        this.activityRepository = activityRepository;
+        this.userCouponRepository = userCouponRepository;
+    }
 
     @Override
     public List<Coupon> getCouponsByCategory(Long cid) {

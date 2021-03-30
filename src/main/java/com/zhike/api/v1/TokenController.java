@@ -19,8 +19,11 @@ import java.util.Map;
 @RequestMapping("/token")
 public class TokenController {
 
-    @Autowired
-    private WxAuthenticationService wxAuthenticationService;
+    private final WxAuthenticationService wxAuthenticationService;
+
+    public TokenController(WxAuthenticationService wxAuthenticationService) {
+        this.wxAuthenticationService = wxAuthenticationService;
+    }
 
     /**
      * 执行微信小程序登录

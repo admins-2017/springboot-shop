@@ -29,11 +29,14 @@ import java.util.Optional;
 @Validated
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
 
     @Value("${shop.order.pay-time-limit}")
     private Long payTimeLimit;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     @PostMapping("")
     @ScopeLevel

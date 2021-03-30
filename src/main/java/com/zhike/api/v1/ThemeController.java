@@ -21,8 +21,11 @@ import java.util.Optional;
 @RequestMapping("/theme")
 public class ThemeController {
 
-    @Autowired
-    private ThemeService themeService;
+    private final ThemeService themeService;
+
+    public ThemeController(ThemeService themeService) {
+        this.themeService = themeService;
+    }
 
     @GetMapping("/by/names")
     public List<ThemePureVO> getThemeGroupByNames(@RequestParam(name = "names") String names) {

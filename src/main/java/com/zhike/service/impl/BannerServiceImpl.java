@@ -12,8 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class BannerServiceImpl implements BannerService {
 
-    @Autowired
-    private BannerRepository bannerRepository;
+    private final BannerRepository bannerRepository;
+
+    public BannerServiceImpl(BannerRepository bannerRepository) {
+        this.bannerRepository = bannerRepository;
+    }
 
     @Override
     public Banner getByName(String name) {

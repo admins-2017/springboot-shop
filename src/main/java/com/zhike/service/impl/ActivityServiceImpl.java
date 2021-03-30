@@ -12,8 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ActivityServiceImpl implements ActivityService {
 
-    @Autowired
-    private ActivityRepository activityRepository;
+    private final ActivityRepository activityRepository;
+
+    public ActivityServiceImpl(ActivityRepository activityRepository) {
+        this.activityRepository = activityRepository;
+    }
 
     @Override
     public Activity getActivityByName(String name) {

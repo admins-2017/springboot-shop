@@ -41,29 +41,32 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    @Autowired
-    private SkuService skuService;
+    private final SkuService skuService;
 
-    @Autowired
-    private CouponRepository couponRepository;
+    private final CouponRepository couponRepository;
 
-    @Autowired
-    private UserCouponRepository userCouponRepository;
+    private final UserCouponRepository userCouponRepository;
 
-    @Autowired
-    private IMoneyDiscount iMoneyDiscount;
+    private final IMoneyDiscount iMoneyDiscount;
 
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-    @Autowired
-    private SkuRepository skuRepository;
+    private final SkuRepository skuRepository;
 
     @Value("${shop.order.max-sku-limit}")
     private int maxSkuLimit;
 
     @Value("${shop.order.pay-time-limit}")
     private Integer payTimeLimit;
+
+    public OrderServiceImpl(SkuService skuService, CouponRepository couponRepository, UserCouponRepository userCouponRepository, IMoneyDiscount iMoneyDiscount, OrderRepository orderRepository, SkuRepository skuRepository) {
+        this.skuService = skuService;
+        this.couponRepository = couponRepository;
+        this.userCouponRepository = userCouponRepository;
+        this.iMoneyDiscount = iMoneyDiscount;
+        this.orderRepository = orderRepository;
+        this.skuRepository = skuRepository;
+    }
 
 
     /**

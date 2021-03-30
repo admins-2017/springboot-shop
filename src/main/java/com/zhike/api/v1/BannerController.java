@@ -22,8 +22,11 @@ import javax.validation.constraints.NotNull;
 @Validated
 public class BannerController {
 
-    @Autowired
-    private BannerService bannerService;
+    private final BannerService bannerService;
+
+    public BannerController(BannerService bannerService) {
+        this.bannerService = bannerService;
+    }
 
     @GetMapping("/name/{name}")
     @ScopeLevel(6)

@@ -14,8 +14,11 @@ import java.util.List;
 @Service
 public class GridCategoryServiceImpl implements GridCategoryService {
 
-    @Autowired
-    private GridCategoryRepository gridCategoryRepository;
+    private final GridCategoryRepository gridCategoryRepository;
+
+    public GridCategoryServiceImpl(GridCategoryRepository gridCategoryRepository) {
+        this.gridCategoryRepository = gridCategoryRepository;
+    }
 
     @Override
     public List<GridCategory> getGridCategoryList(){

@@ -14,8 +14,11 @@ import java.util.List;
 @Service
 public class SkuServiceImpl implements SkuService {
 
-    @Autowired
-    private SkuRepository skuRepository;
+    private final SkuRepository skuRepository;
+
+    public SkuServiceImpl(SkuRepository skuRepository) {
+        this.skuRepository = skuRepository;
+    }
 
     @Override
     public List<Sku> getSkuListByIds(List<Long> ids) {

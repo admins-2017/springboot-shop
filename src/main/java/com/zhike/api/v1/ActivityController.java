@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/activity")
 public class ActivityController {
 
-    @Autowired
-    private ActivityService activityService;
+    private final ActivityService activityService;
+
+    public ActivityController(ActivityService activityService) {
+        this.activityService = activityService;
+    }
 
     @GetMapping("/name/{name}")
     public ActivityPureVO getActivityByName(@PathVariable String name){

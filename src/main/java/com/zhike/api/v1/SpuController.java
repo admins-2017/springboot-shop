@@ -27,8 +27,11 @@ import java.util.List;
 @Validated
 public class SpuController {
 
-    @Autowired
-    private SpuService spuService;
+    private final SpuService spuService;
+
+    public SpuController(SpuService spuService) {
+        this.spuService = spuService;
+    }
 
     @GetMapping("/id/{id}/detail")
     public Spu getSpuDetailById(@PathVariable @Positive Long id){

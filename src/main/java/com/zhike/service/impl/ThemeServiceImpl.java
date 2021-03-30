@@ -15,8 +15,11 @@ import java.util.Optional;
 @Service
 public class ThemeServiceImpl implements ThemeService {
 
-    @Autowired
-    private ThemeRepository themeRepository;
+    private final ThemeRepository themeRepository;
+
+    public ThemeServiceImpl(ThemeRepository themeRepository) {
+        this.themeRepository = themeRepository;
+    }
 
     @Override
     public List<Theme> findByNames(List<String> names){
