@@ -1,5 +1,8 @@
 package com.zhike.model;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.zhike.dto.OrderAddressDTO;
+import com.zhike.util.GenericAndJson;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +13,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -32,6 +36,7 @@ public class Order extends BaseEntity{
      * 订单编号
      */
     private String orderNo;
+
     private Long userId;
     /**
      * 订单原始总价格
@@ -42,11 +47,11 @@ public class Order extends BaseEntity{
      */
     private Integer totalCount;
     /**
-     *
+     *  过期时间
      */
     private Date expiredTime;
     /**
-     *
+     *  用户下单时间
      */
     private Date placedTime;
     /**
@@ -76,5 +81,35 @@ public class Order extends BaseEntity{
     /**
      *  订单状态
      */
-    private Boolean status;
+    private Integer status;
+
+
+    public void setSnapItems(List<OrderSku> orderSkuList) {
+        if (orderSkuList.isEmpty()) {
+            return;
+        }
+        this.snapItems = GenericAndJson.objectToJson(orderSkuList);
+    }
+
+    public List<OrderSku> getSnapItems() {
+        List<OrderSku> list = GenericAndJson.jsonToObject(this.snapItems,
+                new TypeReference<List<OrderSku>>() {
+                });
+        return list;
+    }
+
+
+    public OrderAddressDTO getSnapAddress() {
+        if (this.snapAddress == null) {
+            return null;
+        }
+        OrderAddressDTO o = GenericAndJson.jsonToObject(this.snapAddress,
+                new TypeReference<OrderAddressDTO>() {
+                });
+        return o;
+    }
+
+    public void setSnapAddress(OrderAddressDTO address) {
+        this.snapAddress = GenericAndJson.objectToJson(address);
+    }
 }

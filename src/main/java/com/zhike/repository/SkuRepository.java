@@ -2,6 +2,8 @@ package com.zhike.repository;
 
 import com.zhike.model.Sku;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,4 +20,22 @@ public interface SkuRepository extends JpaRepository<Sku,Long> {
      * @return
      */
     List<Sku> findAllByIdIn(List<Long> ids);
+
+    /**
+     * 减去库存 乐观锁写法
+     * @param sid 商品id
+     * @param quantity 减去数量
+     * @return 更新行数
+     * 一条sql语句的原子性 不会出现线程问题
+     *  乐观锁 可以写成 select version from sku  update 。。。where version =... 俩条 sql
+     *  也可以写成 一条sql
+     *  and s.stock >= :quantity 乐观锁思想 保证 库存不会被减为负数
+     *
+     *  Modifying 在query做更新删除等操作 需要添加注解Modifying
+     */
+    @Modifying
+    @Query("Update Sku s set s.stock = s.stock - :quantity\n" +
+            "where s.id = :sid " +
+            "and s.stock >= :quantity")
+    int reduceStock(Long sid,Long quantity);
 }

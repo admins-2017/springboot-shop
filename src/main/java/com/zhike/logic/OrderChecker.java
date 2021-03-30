@@ -51,8 +51,8 @@ public class OrderChecker {
             this.beyondMaxSkuLimit(skuInfoDTO);
 
 //            累加金额
-            serverTotalPrice.add(this.calculateSkuOrderPrice(sku,skuInfoDTO));
-            orderBOList.add(new SkuOrderBO(sku,skuInfoDTO));
+            serverTotalPrice = serverTotalPrice.add(this.calculateSkuOrderPrice(sku, skuInfoDTO));
+            orderBOList.add(new SkuOrderBO(sku, skuInfoDTO));
 //          组装新的对象
             this.orderSkuList.add(new OrderSku(sku,skuInfoDTO));
         }

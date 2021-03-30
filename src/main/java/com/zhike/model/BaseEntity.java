@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
@@ -21,9 +22,12 @@ public abstract class BaseEntity {
      * JsonIgnore 修饰的属性不序列化返回前端
      */
     @JsonIgnore
+    @Column(insertable = false,updatable = false)
     private Date createTime;
     @JsonIgnore
+    @Column(insertable = false,updatable = false)
     private Date updateTime;
     @JsonIgnore
+    @Column(insertable = false,updatable = false)
     private Date deleteTime;
 }

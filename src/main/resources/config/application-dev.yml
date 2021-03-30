@@ -19,3 +19,6 @@ shop:
     token-expired-in: 86400000
   order:
     max-sku-limit: 100
+    pay-time-limit: 3600
+  year-codes: A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q
+
