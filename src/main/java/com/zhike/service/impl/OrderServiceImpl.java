@@ -25,6 +25,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -52,6 +54,9 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 
     private final SkuRepository skuRepository;
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @Value("${shop.order.max-sku-limit}")
     private int maxSkuLimit;
@@ -171,10 +176,16 @@ public class OrderServiceImpl implements OrderService {
 //      预扣库存
         this.reduceStock(orderChecker);
 
+//        如果未使用优惠券 设置优惠券的id = -1
+        Long couponId = -1L;
+
 //        核销优惠券 判断用户是否使用优惠券
         if (orderDTO.getCouponId()!=null){
+            couponId = orderDTO.getCouponId();
             this.writeOffCoupon(orderDTO.getCouponId(),order.getId(),uid);
         }
+//        将订单信息写入redis
+        this.sendToRedis(order.getId(),uid,couponId);
         return order.getId();
     }
 
@@ -236,4 +247,18 @@ public class OrderServiceImpl implements OrderService {
         order.orElseThrow(() -> new ParameterException(10007));
     }
 
+    /**
+     * 将订单信息写入redis 设置过期事件
+     * @param orderId 订单id
+     * @param uid 用户id
+     * @param couponId 优惠券id
+     */
+    private void sendToRedis(Long orderId,Long uid,Long couponId){
+        String key = orderId.toString()+"-"+uid.toString()+"-"+couponId.toString();
+        try {
+            redisTemplate.opsForValue().set(key,"1",this.payTimeLimit, TimeUnit.SECONDS);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

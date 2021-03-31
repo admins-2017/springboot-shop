@@ -4,6 +4,7 @@ import com.zhike.model.Sku;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -38,4 +39,15 @@ public interface SkuRepository extends JpaRepository<Sku,Long> {
             "where s.id = :sid " +
             "and s.stock >= :quantity")
     int reduceStock(Long sid,Long quantity);
+
+    /**
+     * 执行归还库存 将以取消的订单sku的库存修改
+     * @param sid 商品id
+     * @param quantity 归还数量
+     * @return 更新记录数
+     */
+    @Modifying
+    @Query("update Sku s set s.stock=s.stock+(:quantity) where s.id = :sid")
+    int recoverStock(@Param("sid") Long sid,
+                     @Param("quantity") Long quantity);
 }

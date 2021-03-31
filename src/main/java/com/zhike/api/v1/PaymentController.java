@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
+/**
+ * @author Administrator
+ */
 @RestController
 @RequestMapping("/payment")
 @Validated

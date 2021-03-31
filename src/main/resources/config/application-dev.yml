@@ -13,12 +13,21 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+  redis:
+    host: 139.186.133.169
+    port: 6399
+    database: 7
+    password: kdw051755.
+    # 订阅redis key过期事件
+    listen-pattern: __keyevent@7__:expired
 shop:
   security:
     jwt-key: kang0517
     token-expired-in: 86400000
   order:
+    #最大商品购买数量
     max-sku-limit: 100
+    #订单过期事件
     pay-time-limit: 3600
 #    微信支付回调主机地址及端口号
     pay-callback-host: http://localhost:8080

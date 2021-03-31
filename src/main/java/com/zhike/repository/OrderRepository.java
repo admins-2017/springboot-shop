@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -55,10 +54,29 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
      */
     Optional<Order> findFirstByUserIdAndId(Long uid, Long oid);
 
-
+    /**
+     * 根据订单单号获取订单
+     * @param orderNo 订单单号
+     * @return 订单
+     */
     Optional<Order> findFirstByOrderNo(String orderNo);
 
+    /**
+     * 根据订单单号修改状态
+     * @param orderNo 订单单号
+     * @param value 状态
+     * @return 更新记录数
+     */
     @Modifying
-    @Query("update Order o set o.status=:status where o.orderNo=:orderNo")
+    @Query("update Order o set o.status=:value where o.orderNo=:orderNo")
     int updateStatusByOrderNo(String orderNo, int value);
+
+    /**
+     * 订单超时 取消订单 将状态修改为已取消
+     * @param oid
+     * @return
+     */
+    @Modifying
+    @Query("update Order o set o.status=5 where o.status = 1 and o.id=:oid")
+    int cancelOrder(Long oid);
 }

@@ -41,4 +41,18 @@ public interface UserCouponRepository extends JpaRepository<UserCoupon,Long> {
             "where u.userId =:uid and u.couponId = :couponId and u.status = 1 and u.orderId is null")
     int writeOff(Long couponId, Long orderId, Long uid, Date now);
 
+    /**
+     * 订单超时 归还用户优惠券
+     * @param couponId 优惠券id
+     * @param uid 用户id
+     * @return 更新记录数
+     */
+    @Modifying
+    @Query("update UserCoupon c \n" +
+            "set c.status=1, c.orderId = null \n" +
+            "where c.couponId=:couponId \n" +
+            "and c.userId = :uid \n" +
+            "and c.orderId is not null \n" +
+            "and c.status = 2")
+    int returnBack(Long couponId, Long uid);
 }

@@ -51,9 +51,9 @@ public class WxPaymentServiceImpl implements WxPaymentService {
         Long userId = LocalUser.getUser().getId();
         Optional<Order> orderOptional = orderRepository.findFirstByUserIdAndId(userId, orderId);
 //        判断前端返回的订单id是否存在
-        Order order = orderOptional.orElseThrow(() -> {
-            throw new NotFoundException(50009);
-        });
+        Order order = orderOptional.orElseThrow(() ->
+             new NotFoundException(50009)
+        );
 //        判断订单是否过期 过期则被取消掉
         if(order.needCancel()){
             throw new ForbiddenException(50010);
