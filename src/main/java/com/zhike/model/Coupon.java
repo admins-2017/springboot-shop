@@ -47,7 +47,7 @@ public class Coupon {
     /**
      * 优惠券类型
      */
-    private short type;
+    private Integer type;
     /**
      * 活动外键
      */
