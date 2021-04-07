@@ -88,7 +88,6 @@ public class CouponController {
             default:
                 throw new ParameterException(40001);
         }
-
         return CouponPureVO.getList(couponList);
     }
 
