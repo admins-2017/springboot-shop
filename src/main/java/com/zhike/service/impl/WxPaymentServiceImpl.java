@@ -80,6 +80,7 @@ public class WxPaymentServiceImpl implements WxPaymentService {
 //        prepay_id 微信订单的id号
 //        更新prepay_id 到数据库订单中 防止用户多次点击支付重复向微信发送订单请求
         orderService.updateOrderPrepayId(order.getId(),wxOrder.get("prepay_id"));
+//        orderService.updateOrderPrepayId(order.getId(),"123456");
 
 //        生成数据返回到小程序 使用wx.requestPayMent 唤起微信支付
         Map<String, String> stringStringMap = this.makePaySignature(wxOrder);
