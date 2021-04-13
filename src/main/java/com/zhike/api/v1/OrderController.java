@@ -13,7 +13,6 @@ import com.zhike.vo.OrderIdVO;
 import com.zhike.vo.OrderPureVO;
 import com.zhike.vo.OrderSimplifyVO;
 import com.zhike.vo.PagingDozer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
