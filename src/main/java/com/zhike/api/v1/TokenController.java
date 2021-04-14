@@ -2,10 +2,9 @@ package com.zhike.api.v1;
 
 import com.zhike.dto.TokenDTO;
 import com.zhike.dto.TokenGetDTO;
-import com.zhike.exception.HttpException.NotFoundException;
+import com.zhike.exception.httpexception.NotFoundException;
 import com.zhike.service.WxAuthenticationService;
 import com.zhike.util.JwtToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
+/**
+ * @author Administrator
+ */
 @RestController
 @RequestMapping("/token")
 public class TokenController {
@@ -35,7 +39,7 @@ public class TokenController {
      */
     @PostMapping
     public Map<String,String> getToken(@RequestBody @Validated TokenGetDTO userData){
-        Map<String,String> map = new HashMap<>();
+        Map<String,String> map = new HashMap<>(10);
         String token = null;
         switch (userData.getType()){
             case USER_WX:
@@ -59,7 +63,7 @@ public class TokenController {
      */
     @PostMapping("/verify")
     public Map<String, Boolean> verify(@RequestBody TokenDTO token) {
-        Map<String, Boolean> map = new HashMap<>();
+        Map<String, Boolean> map = new HashMap<>(10);
         Boolean valid = JwtToken.verifyToken(token.getToken());
         map.put("is_valid", valid);
         return map;

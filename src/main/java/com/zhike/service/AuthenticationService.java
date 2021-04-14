@@ -4,6 +4,7 @@ import com.zhike.dto.TokenGetDTO;
 
 /**
  * 普通登录验证服务类
+ * @author Administrator
  */
 public interface AuthenticationService {
 

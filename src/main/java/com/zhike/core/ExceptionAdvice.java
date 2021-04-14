@@ -1,7 +1,7 @@
 package com.zhike.core;
 
 import com.zhike.core.configuration.ExceptionCodeConfiguration;
-import com.zhike.exception.HttpException.HttpException;
+import com.zhike.exception.httpexception.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,10 +12,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 全局捕获异常处理类
@@ -25,7 +23,6 @@ import java.util.Set;
  * RestControllerAdvice 该类为异常处理类，并该类的所有方法返回体都格式化为json
  */
 
-//@ControllerAdvice
 @RestControllerAdvice
 public class ExceptionAdvice {
 
@@ -42,11 +39,10 @@ public class ExceptionAdvice {
      * ResponseBody 将返回的数据json化
      */
     @ExceptionHandler(value= Exception.class)
-//    @ResponseBody
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     public UnifyResponse handleException(HttpServletRequest request , Exception e){
-        UnifyResponse unifyResponse= new  UnifyResponse(9999,"服务器内部出错",request.getMethod()+" "+request.getRequestURI());
-        return unifyResponse;
+        System.out.println(e.getMessage());
+        return new  UnifyResponse(9999,"服务器内部出错",request.getMethod()+" "+request.getRequestURI());
     }
 
     /**
@@ -64,7 +60,7 @@ public class ExceptionAdvice {
 
         UnifyResponse unifyResponse= new  UnifyResponse(code,this.getMessageByCode(code),request.getMethod()+" "+request.getRequestURI());
 
-        /**
+        /*
          * ResponseEntity 定义http返回体
          * 参数1 请求消息响应体
          * 参数2 httpHeaders 请求消息响应体头部
@@ -75,15 +71,14 @@ public class ExceptionAdvice {
         headers.setContentType(MediaType.APPLICATION_JSON);
 //        格式化http返回状态
         HttpStatus status = HttpStatus.resolve(httpStatusCode);
-        ResponseEntity<UnifyResponse> entity = new ResponseEntity<>(unifyResponse,headers,status);
-        return entity;
+        return new ResponseEntity<>(unifyResponse,headers,status);
     }
 
     /**
      * 监听自定义校验抛出的异常
-     * @param request
-     * @param e
-     * @return
+     * @param request 请求
+     * @param e 方法异常
+     * @return 异常结果
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -97,7 +92,7 @@ public class ExceptionAdvice {
 
     /**
      * 监听方法参数校验抛出的异常
-     * @return
+     * @return 异常结果
      */
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -108,8 +103,7 @@ public class ExceptionAdvice {
 
 
     private String getMessageByCode(Integer code){
-       String message =  configuration.getMessage(code);
-        return  message;
+        return configuration.getMessage(code);
     }
 
     private String formatAllErrorMessages(List<ObjectError> errors){

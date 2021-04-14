@@ -1,8 +1,8 @@
 package com.zhike.service.impl;
 
 import com.zhike.core.enumeration.CouponStatus;
-import com.zhike.exception.HttpException.NotFoundException;
-import com.zhike.exception.HttpException.ParameterException;
+import com.zhike.exception.httpexception.NotFoundException;
+import com.zhike.exception.httpexception.ParameterException;
 import com.zhike.model.Activity;
 import com.zhike.model.Coupon;
 import com.zhike.model.UserCoupon;
@@ -11,14 +11,10 @@ import com.zhike.repository.CouponRepository;
 import com.zhike.repository.UserCouponRepository;
 import com.zhike.service.CouponService;
 import com.zhike.util.CommonUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.ParameterExpression;
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Administrator

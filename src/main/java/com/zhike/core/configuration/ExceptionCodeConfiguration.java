@@ -13,6 +13,7 @@ import java.util.Map;
  *
  * ConfigurationProperties 读取指定前缀的key和value进行绑定 绑定到map中
  * prefix 指定前缀
+ * @author Administrator
  */
 @PropertySource(value = "classpath:config/exception-code.properties")
 @ConfigurationProperties(prefix = "http")

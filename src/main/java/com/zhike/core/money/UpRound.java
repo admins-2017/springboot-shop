@@ -7,6 +7,7 @@ import java.math.RoundingMode;
 
 /**
  * 向上舍弃
+ * @author Administrator
  */
 @Component
 public class UpRound implements IMoneyDiscount{

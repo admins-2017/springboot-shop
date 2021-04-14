@@ -2,8 +2,8 @@ package com.zhike.core.interceptors;
 
 import com.auth0.jwt.interfaces.Claim;
 import com.zhike.core.LocalUser;
-import com.zhike.exception.HttpException.ForbiddenException;
-import com.zhike.exception.HttpException.UnAuthenticatedException;
+import com.zhike.exception.httpexception.ForbiddenException;
+import com.zhike.exception.httpexception.UnAuthenticatedException;
 import com.zhike.model.User;
 import com.zhike.service.UserService;
 import com.zhike.util.JwtToken;
@@ -27,9 +27,12 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private UserService userService;
 
+    private static final String HEADER= "Bearer";
+
     public PermissionInterceptor() {
         super();
     }
+
 
 
     /**
@@ -60,7 +63,7 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
             throw new UnAuthenticatedException(10004);
         }
 //        判断token 是否以Bearer开头的
-        if (!bearerToken.startsWith("Bearer")){
+        if (!bearerToken.startsWith(HEADER)){
 //        如果不是以Bearer开头 抛出异常
             throw new UnAuthenticatedException(10004);
         }

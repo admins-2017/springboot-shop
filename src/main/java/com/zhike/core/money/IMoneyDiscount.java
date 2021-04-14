@@ -2,6 +2,9 @@ package com.zhike.core.money;
 
 import java.math.BigDecimal;
 
+/**
+ * @author Administrator
+ */
 public interface IMoneyDiscount {
 
     /**

@@ -1,7 +1,8 @@
-package com.zhike.exception.HttpException;
+package com.zhike.exception.httpexception;
 
 /**
  * 未登录
+ * @author Administrator
  */
 public class UnAuthenticatedException extends HttpException{
 

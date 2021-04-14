@@ -15,7 +15,9 @@ public interface OrderService {
 
     /**
      * 检验订单
-     * @return
+     * @param uid 用户id
+     * @param dto 订单对象
+     * @return 检验结果
      */
     OrderChecker isOk(Long uid, OrderDTO dto);
 
@@ -27,7 +29,7 @@ public interface OrderService {
      * @return 订单id
      *
      */
-    public Long placeOrder(Long uid, OrderDTO orderDTO, OrderChecker orderChecker);
+    Long placeOrder(Long uid, OrderDTO orderDTO, OrderChecker orderChecker);
 
     /**
      * 获取分页未支付订单

@@ -3,18 +3,20 @@ package com.zhike.service.impl;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.zhike.core.enumeration.OrderStatus;
-import com.zhike.exception.HttpException.ServerErrorException;
+import com.zhike.exception.httpexception.ServerErrorException;
 import com.zhike.model.Order;
 import com.zhike.repository.OrderRepository;
 import com.zhike.service.PaymentNotifyService;
 import com.zhike.service.WxPaymentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * @author Administrator
+ */
 @Service
 public class PaymentNotifyServiceImpl implements PaymentNotifyService {
 
@@ -27,7 +29,8 @@ public class PaymentNotifyServiceImpl implements PaymentNotifyService {
         this.orderRepository = orderRepository;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
+    @Override
     public void processPayNotify(String data) {
         Map<String, String> dataMap;
         try {
@@ -59,11 +62,11 @@ public class PaymentNotifyServiceImpl implements PaymentNotifyService {
         String orderNo = dataMap.get("out_trade_no");
 //      获取返回的code码
         String resultCode = dataMap.get("result_code");
-
-        if (!returnCode.equals("SUCCESS")) {
+        String ok = "SUCCESS";
+        if (!ok.equals(returnCode)) {
             throw new ServerErrorException(9999);
         }
-        if (!resultCode.equals("SUCCESS")) {
+        if (!ok.equals(resultCode)) {
             throw new ServerErrorException(9999);
         }
         if (orderNo == null) {

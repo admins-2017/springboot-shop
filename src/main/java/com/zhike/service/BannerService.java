@@ -14,5 +14,10 @@ public interface BannerService {
      */
     Banner getByName(String name);
 
+    /**
+     * 根据id获取banner
+     * @param id
+     * @return
+     */
     Banner getById(Long id);
 }

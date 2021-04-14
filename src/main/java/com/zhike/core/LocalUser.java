@@ -16,7 +16,7 @@ public class LocalUser {
 
 
     public static void setUser(User user,Integer scope){
-        Map<String,Object> map = new HashMap<>();
+        Map<String,Object> map = new HashMap<>(10);
         map.put("user",user);
         map.put("scope",scope);
         LocalUser.threadLocal.set(map);

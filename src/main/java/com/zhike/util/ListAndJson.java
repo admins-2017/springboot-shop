@@ -1,12 +1,11 @@
 package com.zhike.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zhike.exception.HttpException.ServerErrorException;
+import com.zhike.exception.httpexception.ServerErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.util.HashMap;
 import java.util.List;
 
 /**

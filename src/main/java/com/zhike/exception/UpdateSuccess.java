@@ -9,7 +9,7 @@
 package com.zhike.exception;
 
 
-import com.zhike.exception.HttpException.HttpException;
+import com.zhike.exception.httpexception.HttpException;
 
 /**
  * @author Administrator

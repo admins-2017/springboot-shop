@@ -1,14 +1,17 @@
 package com.zhike.vo;
 
 import com.zhike.model.Order;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
 
-@Getter
-@Setter
+/**
+ * @author Administrator
+ */
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class OrderPureVO extends Order {
     private Long period;
     private Date createTime;

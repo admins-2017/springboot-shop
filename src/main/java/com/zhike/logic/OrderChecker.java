@@ -3,7 +3,7 @@ package com.zhike.logic;
 import com.zhike.bo.SkuOrderBO;
 import com.zhike.dto.OrderDTO;
 import com.zhike.dto.SkuInfoDTO;
-import com.zhike.exception.HttpException.ParameterException;
+import com.zhike.exception.httpexception.ParameterException;
 import com.zhike.model.OrderSku;
 import com.zhike.model.Sku;
 import lombok.Getter;

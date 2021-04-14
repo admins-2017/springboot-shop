@@ -34,6 +34,7 @@ public interface UserCouponRepository extends JpaRepository<UserCoupon,Long> {
      * @param couponId 优惠券id
      * @param orderId 订单id
      * @param uid 用户id
+     * @param now 当前时间
      * @return 更新记录数
      */
     @Modifying

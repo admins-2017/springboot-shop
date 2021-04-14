@@ -2,9 +2,22 @@ package com.zhike.core.enumeration;
 
 import java.util.stream.Stream;
 
+/**
+ * @author Administrator
+ */
+
 public enum  CouponType {
+    /**
+     * 满减券
+     */
     FULL_MINUS(1, "满减券"),
+    /**
+     *满减折扣券
+     */
     FULL_OFF(2,"满减折扣券"),
+    /**
+     *无门槛减除券
+     */
     NO_THRESHOLD_MINUS(3, "无门槛减除券");
 
     private int value;

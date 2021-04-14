@@ -46,14 +46,13 @@ public class Sku extends BaseEntity{
      * 将json数组装换为list对象
      * @Convert(converter = ListAndJson.class) 声明jpa在序列化或反序列化时执行自定义封装的类进行序列化
      */
-//    @Convert(converter = ListAndJson.class)
     private String specs;
 
     /**
      * 获取商品的所有规格值
      *
      * JsonIgnore 不进行序列化
-     * @return
+     * @return 字符串
      */
     @JsonIgnore
     public List<String> getSpecValueList() {
@@ -62,7 +61,7 @@ public class Sku extends BaseEntity{
 
     /**
      * 获取商品的价格 如果有折扣价 则返回折扣价 反之返回原价
-     * @return
+     * @return 价格
      */
     public BigDecimal getActualPrice(){
         return discountPrice==null?this.price:this.discountPrice;
@@ -70,7 +69,7 @@ public class Sku extends BaseEntity{
 
     /**
      * 在jpa执行序列化时会执行get 和 set 方法 所有需要重写get 和 set方法 来执行自定义序列化
-     * @return
+     * @return 规格集合
      */
     public List<Spec> getSpecs() {
 //        判断属性是否有值 规格是否存在
@@ -84,7 +83,6 @@ public class Sku extends BaseEntity{
 
     /**
      * 在jpa执行序列化时会执行get 和 set 方法 所有需要重写get 和 set方法 来执行自定义序列化
-     * @return
      */
     public void setSpecs(List<Spec> specs) {
         if(specs.isEmpty()){
@@ -94,7 +92,7 @@ public class Sku extends BaseEntity{
     }
 
 
-    /**
+    /*
      * 将mysql中单体json格式的类型装换为对象
      * 单体json 只有一个json体且不为数组json
      * 如果只有一个json体则可以用map来获取

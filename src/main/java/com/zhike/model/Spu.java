@@ -17,9 +17,13 @@ public class Spu extends BaseEntity{
     private Long id;
     private String title;
     private String subtitle;
-    //二级分类id
+    /**
+     * 二级分类id
+     */
     private Long categoryId;
-    //用于一级分类查询的一级分类id
+    /**
+     * 用于一级分类查询的一级分类id
+     */
     private Long rootCategoryId;
     private Boolean online;
     private String price;

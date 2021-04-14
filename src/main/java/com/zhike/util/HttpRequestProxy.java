@@ -7,10 +7,18 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * @author Administrator
+ * ip地址获取类
+ */
 @Component
 public class HttpRequestProxy {
 
     private static HttpServletRequest request;
+    private static final String UNKNOWN  = "unknown";
+    private static final String LOCALHOST = "127.0.0.1";
+    private static final String ADDRESSING = ",";
+
 
     @Autowired
     public void setRequest(HttpServletRequest request) {
@@ -23,30 +31,32 @@ public class HttpRequestProxy {
 
     public static String getRemoteRealIp() {
         HttpServletRequest request = HttpRequestProxy.request;
-        String ipAddress = null;
+        String ipAddress ;
         try {
             ipAddress = request.getHeader("x-forwarded-for");
-            if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+            if (ipAddress == null || ipAddress.length() == 0 || UNKNOWN.equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getHeader("Proxy-Client-IP");
             }
-            if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+            if (ipAddress == null || ipAddress.length() == 0 || UNKNOWN.equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getHeader("WL-Proxy-Client-IP");
             }
-            if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+            if (ipAddress == null || ipAddress.length() == 0 || UNKNOWN.equalsIgnoreCase(ipAddress)) {
                 ipAddress = request.getRemoteAddr();
-                if (ipAddress.equals("127.0.0.1")) {
+                if (ipAddress.equals(LOCALHOST)) {
                     InetAddress inet = null;
                     try {
                         inet = InetAddress.getLocalHost();
                     } catch (UnknownHostException e) {
                         e.printStackTrace();
                     }
+                    assert inet != null;
                     ipAddress = inet.getHostAddress();
                 }
             }
-            if (ipAddress != null && ipAddress.length() > 15) { // "***.***.***.***".length()
-                // = 15
-                if (ipAddress.indexOf(",") > 0) {
+            int defaultLength;
+            defaultLength = 15;
+            if (ipAddress != null && ipAddress.length() > defaultLength) {
+                if (ipAddress.indexOf(ADDRESSING) > 0) {
                     ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
                 }
             }

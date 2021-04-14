@@ -22,6 +22,9 @@ import java.security.SecureRandom;
 import java.util.*;
 
 
+/**
+ * @author Administrator
+ */
 public class WXPayUtil {
 
     private static final String SYMBOLS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -37,7 +40,7 @@ public class WXPayUtil {
      */
     public static Map<String, String> xmlToMap(String strXML) throws Exception {
         try {
-            Map<String, String> data = new HashMap<String, String>();
+            Map<String, String> data = new HashMap<String, String>(10);
             DocumentBuilder documentBuilder = WXPayXmlUtil.newDocumentBuilder();
             InputStream stream = new ByteArrayInputStream(strXML.getBytes("UTF-8"));
             org.w3c.dom.Document doc = documentBuilder.parse(stream);
@@ -92,7 +95,7 @@ public class WXPayUtil {
         StringWriter writer = new StringWriter();
         StreamResult result = new StreamResult(writer);
         transformer.transform(source, result);
-        String output = writer.getBuffer().toString(); //.replaceAll("\n|\r", "");
+        String output = writer.getBuffer().toString();
         try {
             writer.close();
         }
@@ -117,7 +120,7 @@ public class WXPayUtil {
      * 生成带有 sign 的 XML 格式字符串
      *
      * @param data Map类型数据
-     * @param key API密钥
+     * @param key API密钥generateSignature
      * @param signType 签名类型
      * @return 含有sign字段的XML
      */
@@ -202,8 +205,10 @@ public class WXPayUtil {
             if (k.equals(WXPayConstants.FIELD_SIGN)) {
                 continue;
             }
-            if (data.get(k).trim().length() > 0) // 参数值为空，则不参与签名
+            // 参数值为空，则不参与签名
+            if (data.get(k).trim().length() > 0) {
                 sb.append(k).append("=").append(data.get(k).trim()).append("&");
+            }
         }
         sb.append("key=").append(key);
         if (SignType.MD5.equals(signType)) {

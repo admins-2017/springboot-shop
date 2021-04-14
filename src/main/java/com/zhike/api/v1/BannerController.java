@@ -2,10 +2,9 @@ package com.zhike.api.v1;
 
 import com.zhike.core.interceptors.ScopeLevel;
 import com.zhike.dto.PersonDTO;
-import com.zhike.exception.HttpException.NotFoundException;
+import com.zhike.exception.httpexception.NotFoundException;
 import com.zhike.model.Banner;
 import com.zhike.service.BannerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

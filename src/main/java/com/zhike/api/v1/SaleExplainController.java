@@ -1,6 +1,6 @@
 package com.zhike.api.v1;
 
-import com.zhike.exception.HttpException.NotFoundException;
+import com.zhike.exception.httpexception.NotFoundException;
 import com.zhike.model.SaleExplain;
 import com.zhike.service.SaleExplainService;
 import org.springframework.beans.factory.annotation.Autowired;

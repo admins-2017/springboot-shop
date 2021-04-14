@@ -5,6 +5,9 @@ import com.github.wxpay.sdk.WXPayConstants.SignType;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author kang
+ */
 public class WXPay {
 
     private WXPayConfig config;
@@ -41,7 +44,7 @@ public class WXPay {
         this.autoReport = autoReport;
         this.useSandbox = useSandbox;
         if (useSandbox) {
-            this.signType = SignType.MD5; // 沙箱环境
+            this.signType = SignType.MD5;
         }
         else {
             this.signType = SignType.HMACSHA256;
@@ -577,7 +580,7 @@ public class WXPay {
         }
         else {
             // 正常返回csv数据
-            ret = new HashMap<String, String>();
+            ret = new HashMap<String, String>(10);
             ret.put("return_code", WXPayConstants.SUCCESS);
             ret.put("return_msg", "ok");
             ret.put("data", respStr);

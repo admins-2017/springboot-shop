@@ -26,6 +26,9 @@ import java.security.SecureRandom;
 
 import static com.github.wxpay.sdk.WXPayConstants.USER_AGENT;
 
+/**
+ * @author Administrator
+ */
 public class WXPayRequest {
     private WXPayConfig config;
     public WXPayRequest(WXPayConfig config) throws Exception{

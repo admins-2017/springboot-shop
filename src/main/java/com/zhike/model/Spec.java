@@ -2,6 +2,9 @@ package com.zhike.model;
 
 import lombok.Data;
 
+/**
+ * @author Administrator
+ */
 @Data
 public class Spec {
 

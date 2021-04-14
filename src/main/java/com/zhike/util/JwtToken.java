@@ -17,12 +17,18 @@ import java.util.*;
  */
 @Component
 public class JwtToken {
-//  设置密钥
+    /**
+     * 设置密钥
+     */
     private static String jwtKey;
-//    过期时间
+    /**
+     * 过期时间
+     */
     private static Integer expiredTimeIn;
-//  默认等级
-    private static Integer defaultScope = 8;
+    /**
+     * 默认等级
+     */
+    private static final Integer DEFAULTSCOPE  = 8;
 
     @Value("${shop.security.jwt-key}")
     public void setJwtKey(String jwtKey) {
@@ -38,7 +44,7 @@ public class JwtToken {
      * 获取令牌
      * @param uid 用户id
      * @param scope 用户等级 涉及到权限 scope等级低的用户无法访问
-     * @return
+     * @return 令牌
      */
     public static String makeToken(Long uid,Integer scope){
         return JwtToken.getToken(uid,scope);
@@ -50,25 +56,24 @@ public class JwtToken {
      * @return 令牌
      */
     public static String makeToken(Long uid) {
-        return JwtToken.getToken(uid, JwtToken.defaultScope);
+        return JwtToken.getToken(uid, JwtToken.DEFAULTSCOPE);
     }
 
     public static String getToken(Long uid,Integer scope){
         Algorithm algorithm = Algorithm.HMAC256(JwtToken.jwtKey);
         Map<String, Date> stringDateMap = JwtToken.calculateExpiredIssues();
-        /**
+        /*
          * 生成令牌
          * sign 算法
          * withClaim 设置令牌参数
          * withExpiresAt 设置过期时间
          * withIssuedAt 设置签发时间
          */
-        String token = JWT.create().withClaim("uid",uid)
+        return JWT.create().withClaim("uid",uid)
                 .withClaim("scope",scope)
                 .withExpiresAt(stringDateMap.get("expiredTime"))
                 .withIssuedAt(stringDateMap.get("now"))
                 .sign(algorithm);
-        return token;
     }
 
     /**
@@ -98,7 +103,7 @@ public class JwtToken {
      * 获取时间
      */
     private static Map<String, Date> calculateExpiredIssues() {
-        Map<String, Date> map = new HashMap<>();
+        Map<String, Date> map = new HashMap<>(10);
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         calendar.add(Calendar.SECOND, JwtToken.expiredTimeIn);
@@ -111,8 +116,8 @@ public class JwtToken {
 
     /**
      * 验证token是否有效
-     * @param token
-     * @return
+     * @param token 令牌
+     * @return 是否有效
      */
     public static Boolean verifyToken(String token) {
         try {

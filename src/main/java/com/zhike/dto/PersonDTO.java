@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 
@@ -19,12 +18,12 @@ import javax.validation.Valid;
  * Builder构建对象 PersonDTO yuan = PersonDTO.builder().name("yuan").age(18).build();
  * 使用Builder 不通过序列化问题 Builder不会为属性生成get方法 如果需要序列化则需要手动添加get方法
  * Validated 开启Validated对该类的属性进行验证 如果上级调用放开启了Validated 则可以不加Validated
+ * //@Validated
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-//@Validated
 @PasswordEqual(min = 2)
 public class PersonDTO {
 

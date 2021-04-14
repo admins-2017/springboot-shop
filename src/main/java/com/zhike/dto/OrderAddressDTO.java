@@ -1,13 +1,11 @@
 package com.zhike.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * @author Administrator
  */
-@Getter
-@Setter
+@Data
 public class OrderAddressDTO {
     private String userName;
     private String province;

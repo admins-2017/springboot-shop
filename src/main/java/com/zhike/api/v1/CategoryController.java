@@ -1,12 +1,11 @@
 package com.zhike.api.v1;
 
-import com.zhike.exception.HttpException.NotFoundException;
+import com.zhike.exception.httpexception.NotFoundException;
 import com.zhike.model.Category;
 import com.zhike.model.GridCategory;
 import com.zhike.service.CategoryService;
 import com.zhike.service.GridCategoryService;
 import com.zhike.vo.CategoryAllVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

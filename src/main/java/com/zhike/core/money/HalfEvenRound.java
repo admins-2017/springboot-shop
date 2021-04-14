@@ -6,6 +6,7 @@ import java.math.RoundingMode;
 /**
  * 银行家算法
  * 4舍6入
+ * @author Administrator
  */
 public class HalfEvenRound implements IMoneyDiscount{
     @Override

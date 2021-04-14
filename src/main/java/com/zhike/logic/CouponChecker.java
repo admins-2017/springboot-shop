@@ -3,11 +3,10 @@ package com.zhike.logic;
 import com.zhike.bo.SkuOrderBO;
 import com.zhike.core.enumeration.CouponType;
 import com.zhike.core.money.IMoneyDiscount;
-import com.zhike.exception.HttpException.ForbiddenException;
-import com.zhike.exception.HttpException.ParameterException;
+import com.zhike.exception.httpexception.ForbiddenException;
+import com.zhike.exception.httpexception.ParameterException;
 import com.zhike.model.Category;
 import com.zhike.model.Coupon;
-import com.zhike.model.UserCoupon;
 import com.zhike.util.CommonUtil;
 
 import java.math.BigDecimal;
@@ -49,13 +48,15 @@ public class CouponChecker {
      */
     public void finalTotalPrice(BigDecimal orderTotalPrice,BigDecimal serverTotalPrice){
         BigDecimal serverFinalTotalPrice;
+        String basisPrice = "0";
         switch (CouponType.toType(this.coupon.getType())){
             case FULL_MINUS:
             case NO_THRESHOLD_MINUS:
 //                满减
                 serverFinalTotalPrice = serverTotalPrice.subtract(this.coupon.getMinus());
+
 //                  判断 满减/无门槛减除券 最终价格不能小于0
-                if (serverFinalTotalPrice.compareTo(new BigDecimal("0"))<= 0){
+                if (serverFinalTotalPrice.compareTo(new BigDecimal(basisPrice))<= 0){
 //                    如果小于0 则抛出异常
                     throw new ForbiddenException(50008);
                 }

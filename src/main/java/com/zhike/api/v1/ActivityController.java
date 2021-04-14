@@ -1,11 +1,10 @@
 package com.zhike.api.v1;
 
-import com.zhike.exception.HttpException.NotFoundException;
+import com.zhike.exception.httpexception.NotFoundException;
 import com.zhike.model.Activity;
 import com.zhike.service.ActivityService;
 import com.zhike.vo.ActivityAndCouponVO;
 import com.zhike.vo.ActivityPureVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

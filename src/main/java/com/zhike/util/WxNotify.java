@@ -1,12 +1,15 @@
 package com.zhike.util;
 
-import com.zhike.exception.HttpException.ServerErrorException;
+import com.zhike.exception.httpexception.ServerErrorException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * @author Administrator
+ */
 public class WxNotify {
     public static String readNotify(InputStream stream) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));

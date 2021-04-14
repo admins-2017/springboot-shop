@@ -5,6 +5,9 @@ import com.zhike.model.Theme;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author Administrator
+ */
 public interface ThemeService {
 
     /**

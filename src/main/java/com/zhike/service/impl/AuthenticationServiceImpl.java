@@ -4,6 +4,9 @@ import com.zhike.dto.TokenGetDTO;
 import com.zhike.service.AuthenticationService;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Administrator
+ */
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
 

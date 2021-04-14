@@ -4,10 +4,14 @@ import org.apache.http.client.HttpClient;
 
 /**
  * 常量
+ * @author Administrator
  */
 public class WXPayConstants {
 
     public enum SignType {
+        /**
+         * 密码格式
+         */
         MD5, HMACSHA256
     }
 
@@ -42,7 +46,9 @@ public class WXPayConstants {
     public static final String SHORTURL_URL_SUFFIX     = "/tools/shorturl";
     public static final String AUTHCODETOOPENID_URL_SUFFIX = "/tools/authcodetoopenid";
 
-    // sandbox
+    /**
+     * sandbox
+     */
     public static final String SANDBOX_MICROPAY_URL_SUFFIX     = "/sandboxnew/pay/micropay";
     public static final String SANDBOX_UNIFIEDORDER_URL_SUFFIX = "/sandboxnew/pay/unifiedorder";
     public static final String SANDBOX_ORDERQUERY_URL_SUFFIX   = "/sandboxnew/pay/orderquery";

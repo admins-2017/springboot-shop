@@ -1,23 +1,17 @@
 package com.zhike.api.v1;
 
-import com.github.dozermapper.core.DozerBeanMapper;
-import com.github.dozermapper.core.DozerBeanMapperBuilder;
-import com.github.dozermapper.core.Mapper;
 import com.zhike.bo.PageCounter;
-import com.zhike.exception.HttpException.NotFoundException;
+import com.zhike.exception.httpexception.NotFoundException;
 import com.zhike.model.Spu;
 import com.zhike.service.SpuService;
 import com.zhike.util.CommonUtil;
 import com.zhike.vo.PagingDozer;
 import com.zhike.vo.SpuSimplifyVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Administrator

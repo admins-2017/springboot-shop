@@ -4,6 +4,7 @@ import com.zhike.model.Coupon;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class CouponPureVO {
 
     private Long id;

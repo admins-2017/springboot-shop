@@ -7,6 +7,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 /**
  * 根据包名获取controller前缀
+ * @author Administrator
  */
 @Component
 public class AutoPrefixConfiguration implements WebMvcRegistrations {

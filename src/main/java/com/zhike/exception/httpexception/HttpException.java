@@ -1,4 +1,4 @@
-package com.zhike.exception.HttpException;
+package com.zhike.exception.httpexception;
 
 /**
  * 自定义http 异常

@@ -37,7 +37,13 @@ public class CommonUtil {
         return calendar;
     }
 
-    //period 单位：秒
+
+    /**
+     * period 单位：秒
+     * @param startTime 开始时间
+     * @param period 时间
+     * @return 是否过期
+     */
     public static Boolean isOutOfDate(Date startTime, Long period) {
         Long now = Calendar.getInstance().getTimeInMillis();
         Long startTimeStamp = startTime.getTime();

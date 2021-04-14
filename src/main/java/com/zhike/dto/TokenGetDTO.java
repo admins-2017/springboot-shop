@@ -6,6 +6,10 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
+
+/**
+ * @author Administrator
+ */
 @Data
 public class TokenGetDTO {
 

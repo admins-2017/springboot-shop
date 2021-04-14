@@ -8,7 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 /**
- * 2018/7/3
+ * @author Administrator
  */
 public final class WXPayXmlUtil {
     public static DocumentBuilder newDocumentBuilder() throws ParserConfigurationException {

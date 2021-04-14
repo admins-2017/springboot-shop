@@ -14,10 +14,11 @@ import java.util.List;
 @Setter
 @ToString
 public class CouponCategoryVO extends CouponPureVO {
-    private List<CategoryPureVo> categories = new ArrayList<>();
+    private List<CategoryPureVo> categories ;
 
     public CouponCategoryVO(Coupon coupon) {
         super(coupon);
+        this.categories = new ArrayList<>();
         List<Category> categories = coupon.getCategoryList();
         categories.forEach(category -> {
             CategoryPureVo vo = new CategoryPureVo(category);

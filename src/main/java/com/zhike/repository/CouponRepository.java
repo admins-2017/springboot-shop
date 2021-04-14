@@ -41,9 +41,9 @@ public interface CouponRepository extends JpaRepository<Coupon,Long> {
 
     /**
      * 获取全场券
-     * @param b 是否为全场券
+     * @param isWholeStore 是否为全场券
      * @param now 当前时间
-     * @return
+     * @return 优惠券集合
      */
     @Query("select c from Coupon c\n" +
             "join Activity a on c.activityId = a.id\n" +
@@ -53,9 +53,9 @@ public interface CouponRepository extends JpaRepository<Coupon,Long> {
 
     /**
      * 获取所有可以使用的优惠券
-     * @param uid
-     * @param now
-     * @return
+     * @param uid 用户id
+     * @param now 当前时间
+     * @return 优惠券集合
      */
     @Query("select c from Coupon c\n" +
             "join UserCoupon uc\n" +
@@ -72,9 +72,9 @@ public interface CouponRepository extends JpaRepository<Coupon,Long> {
 
     /**
      * 获取所有已经使用的优惠券
-     * @param uid
-     * @param now
-     * @return
+     * @param uid 用户id
+     * @param now 当前时间
+     * @return 优惠券集合
      */
     @Query("select c From Coupon c\n" +
             "join UserCoupon uc\n" +
@@ -91,9 +91,9 @@ public interface CouponRepository extends JpaRepository<Coupon,Long> {
 
     /**
      * 获取所有过期的优惠券
-     * @param uid
-     * @param now
-     * @return
+     * @param uid 用户id
+     * @param now 当前时间
+     * @return 优惠券集合
      */
     @Query("select c From Coupon c\n" +
             "join UserCoupon uc\n" +

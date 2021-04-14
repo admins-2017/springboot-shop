@@ -5,19 +5,17 @@ import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.github.wxpay.sdk.ZhiKePayConfig;
 import com.zhike.core.LocalUser;
-import com.zhike.exception.HttpException.ForbiddenException;
-import com.zhike.exception.HttpException.NotFoundException;
-import com.zhike.exception.HttpException.ParameterException;
-import com.zhike.exception.HttpException.ServerErrorException;
+import com.zhike.exception.httpexception.ForbiddenException;
+import com.zhike.exception.httpexception.NotFoundException;
+import com.zhike.exception.httpexception.ParameterException;
+import com.zhike.exception.httpexception.ServerErrorException;
 import com.zhike.model.Order;
-import com.zhike.model.User;
 import com.zhike.repository.OrderRepository;
 import com.zhike.service.OrderService;
 import com.zhike.service.WxPaymentService;
 import com.zhike.util.CommonUtil;
 import com.zhike.util.HttpRequestProxy;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +24,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * @author Administrator
+ */
 @Service
 public class WxPaymentServiceImpl implements WxPaymentService {
 
@@ -39,7 +40,7 @@ public class WxPaymentServiceImpl implements WxPaymentService {
     private final OrderService orderService;
 
 
-    private static ZhiKePayConfig zhiKePayConfig = new ZhiKePayConfig();
+    private static final ZhiKePayConfig zhiKePayConfig = new ZhiKePayConfig();
 
     public WxPaymentServiceImpl(OrderRepository orderRepository, OrderService orderService) {
         this.orderRepository = orderRepository;
@@ -93,7 +94,7 @@ public class WxPaymentServiceImpl implements WxPaymentService {
      * @return
      */
     private Map<String, String> makePaySignature(Map<String, String> wxOrder) {
-        Map<String, String> wxPayMap = new HashMap<>();
+        Map<String, String> wxPayMap = new HashMap<>(10);
 //        微信订单id
         String packages = "prepay_id=" + wxOrder.get("prepay_id");
 //      获取appid
@@ -115,7 +116,7 @@ public class WxPaymentServiceImpl implements WxPaymentService {
             throw new ServerErrorException(9999);
         }
 //      将签名放入返回小程序的map中
-        Map<String, String> miniPayParams = new HashMap<>();
+        Map<String, String> miniPayParams = new HashMap<>(10);
         miniPayParams.put("paySign", sign);
         miniPayParams.putAll(wxPayMap);
 //        移除appid
@@ -131,7 +132,7 @@ public class WxPaymentServiceImpl implements WxPaymentService {
      */
     private Map<String, String> makePreOrderParams(BigDecimal serverFinalPrice, String orderNo) {
         String payCallbackUrl = this.payCallbackHost + this.payCallbackPath;
-        Map<String, String> data = new HashMap<>();
+        Map<String, String> data = new HashMap<>(10);
 //        商品的标题
         data.put("body", "智客科技");
 //        订单编号
@@ -157,6 +158,7 @@ public class WxPaymentServiceImpl implements WxPaymentService {
      * 配置微信请求
      * @return
      */
+    @Override
     public WXPay assembleWxPayConfig(){
         WXPay wxPay;
         try{

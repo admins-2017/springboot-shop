@@ -2,6 +2,9 @@ package com.github.wxpay.sdk;
 
 import java.io.InputStream;
 
+/**
+ * @author Administrator
+ */
 public abstract class WXPayConfig {
 
 

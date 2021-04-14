@@ -4,7 +4,7 @@ import com.zhike.bo.PageCounter;
 import com.zhike.core.LocalUser;
 import com.zhike.core.interceptors.ScopeLevel;
 import com.zhike.dto.OrderDTO;
-import com.zhike.exception.HttpException.NotFoundException;
+import com.zhike.exception.httpexception.NotFoundException;
 import com.zhike.logic.OrderChecker;
 import com.zhike.model.Order;
 import com.zhike.service.OrderService;

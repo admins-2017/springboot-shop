@@ -5,9 +5,9 @@ import com.zhike.core.enumeration.OrderStatus;
 import com.zhike.core.money.IMoneyDiscount;
 import com.zhike.dto.OrderDTO;
 import com.zhike.dto.SkuInfoDTO;
-import com.zhike.exception.HttpException.ForbiddenException;
-import com.zhike.exception.HttpException.NotFoundException;
-import com.zhike.exception.HttpException.ParameterException;
+import com.zhike.exception.httpexception.ForbiddenException;
+import com.zhike.exception.httpexception.NotFoundException;
+import com.zhike.exception.httpexception.ParameterException;
 import com.zhike.logic.CouponChecker;
 import com.zhike.logic.OrderChecker;
 import com.zhike.model.*;
@@ -78,6 +78,7 @@ public class OrderServiceImpl implements OrderService {
      *  获取未支付订单信息
      * @param page 页码
      * @param size 条数
+     * @return 分页对象
      */
     @Override
     public Page<Order> getUnpaid(Integer page, Integer size){
@@ -85,8 +86,7 @@ public class OrderServiceImpl implements OrderService {
         Pageable pageable = PageRequest.of(page, size,Sort.by("createTime").descending());
         Long uid = LocalUser.getUser().getId();
         Date date = new Date();
-        Page<Order> orders = this.orderRepository.findByExpiredTimeGreaterThanAndStatusAndUserId(date, OrderStatus.UNPAID.value(), uid,pageable);
-        return orders;
+        return this.orderRepository.findByExpiredTimeGreaterThanAndStatusAndUserId(date, OrderStatus.UNPAID.value(), uid,pageable);
     }
 
     @Override
@@ -120,8 +120,9 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public OrderChecker isOk(Long uid, OrderDTO dto) {
+        String defaultBig  = "0";
 //       检验价格是否小于等于0
-        if (dto.getTotalPrice().compareTo(new BigDecimal("0")) <= 0){
+        if (dto.getTotalPrice().compareTo(new BigDecimal(defaultBig)) <= 0){
             throw new ParameterException(50011);
         }
 //        获取商品 sku id数组

@@ -7,6 +7,7 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * tokenPassword 注解 处理类
+ * @author Administrator
  */
 public class TokenPasswordValidator implements ConstraintValidator<TokenPassword, String> {
 
