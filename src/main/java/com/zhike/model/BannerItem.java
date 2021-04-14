@@ -21,6 +21,7 @@ public class BannerItem extends BaseEntity{
     private short type;
     private Long bannerId;
     private String name;
+    private String title;
 
 
 }
