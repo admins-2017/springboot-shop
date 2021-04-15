@@ -4,6 +4,8 @@
 default:
   api-package: com.zhike.api
 server:
+  http2:
+    enabled: true
   ssl:
     enabled: true
     key-store: classpath:www.kangdongwei.cn.pfx
