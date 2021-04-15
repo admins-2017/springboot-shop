@@ -3,7 +3,12 @@
 # api 为所有路由的根包
 default:
   api-package: com.zhike.api
-
+server:
+  ssl:
+    enabled: true
+    key-store: classpath:www.kangdongwei.cn.pfx
+    key-store-password: kdw051755
+  port: 8088
 spring:
   http:
     encoding:
