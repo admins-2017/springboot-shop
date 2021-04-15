@@ -45,11 +45,11 @@ public class SpuController {
 
     /**
      * @Positive(message = "{id.positive}") 读取ValidationMessages中的值
-     * @param id
-     * @param isRoot
-     * @param start
-     * @param count
-     * @return
+     * @param id 分类id
+     * @param isRoot 是否为根节点
+     * @param start 开始位置
+     * @param count 条数
+     * @return 商品集合
      */
     @GetMapping("/by/category/{id}")
     public PagingDozer<Spu,SpuSimplifyVO> getSpuListByCategoryId(@PathVariable @Positive(message = "{id.positive}") Long id
