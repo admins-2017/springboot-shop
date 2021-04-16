@@ -35,4 +35,12 @@ public interface SpuRepository extends JpaRepository<Spu,Long> {
      */
     Page<Spu> findByRootCategoryIdOrderByCreateTimeDesc(Long id, Pageable pageable);
 
+
+    /**
+     * 根据查询条件获取商品
+     * @param likeName 查询条件
+     * @param pageable 分页对象
+     * @return 分页结果集
+     */
+    Page<Spu> findAllByTagsLike(Pageable pageable,String likeName);
 }

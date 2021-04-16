@@ -33,4 +33,13 @@ public interface SpuService {
      * @return 商品集合
      */
     Page<Spu> getSpuListByCategoryId(Integer page, Integer count,Long id,Boolean isRoot);
+
+    /**
+     * 根据查询条件获取商品集合
+     * @param page 页码
+     * @param count 条数
+     * @param likeName 查询条件
+     * @return 商品集合
+     */
+    Page<Spu> getSpuListLikeTag(Integer page, Integer count,String likeName);
 }

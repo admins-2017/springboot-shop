@@ -2,11 +2,9 @@ package com.zhike.model;
 
 import lombok.Data;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,6 +17,7 @@ public class Tag extends BaseEntity{
     private Long id;
     private String title;
     private String description;
-    private Boolean highlight;
-    private Boolean type;
+    private Integer highlight;
+    private Integer type;
+
 }

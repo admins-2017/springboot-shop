@@ -47,4 +47,10 @@ public class SpuServiceImpl implements SpuService {
         System.out.println("执行false");
         return spuRepository.findByCategoryIdOrderByCreateTimeDesc(id,pageable);
     }
+
+    @Override
+    public Page<Spu> getSpuListLikeTag(Integer page, Integer count, String likeName) {
+        Pageable pageable = PageRequest.of(page, count);
+        return spuRepository.findAllByTagsLike(pageable,likeName);
+    }
 }
