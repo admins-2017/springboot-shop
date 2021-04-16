@@ -4,6 +4,7 @@ import com.zhike.model.Spu;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -42,5 +43,5 @@ public interface SpuRepository extends JpaRepository<Spu,Long> {
      * @param pageable 分页对象
      * @return 分页结果集
      */
-    Page<Spu> findAllByTagsLike(Pageable pageable,String likeName);
+    Page<Spu> findAllByTagsLike(Pageable pageable, String likeName);
 }

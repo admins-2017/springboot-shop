@@ -51,6 +51,7 @@ public class SpuServiceImpl implements SpuService {
     @Override
     public Page<Spu> getSpuListLikeTag(Integer page, Integer count, String likeName) {
         Pageable pageable = PageRequest.of(page, count);
-        return spuRepository.findAllByTagsLike(pageable,likeName);
+        String newLikeName = "%"+likeName+"%";
+        return spuRepository.findAllByTagsLike(pageable,newLikeName);
     }
 }
